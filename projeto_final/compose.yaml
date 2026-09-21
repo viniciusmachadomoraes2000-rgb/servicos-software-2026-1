@@ -1,0 +1,15 @@
+services:
+
+  backend:
+    build: ./backend
+    container_name: projeto-backend
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build: ./frontend
+    container_name: projeto-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
