@@ -1,0 +1,44 @@
+{
+    "REDE DE POSTOS SETE ESTRELAS LTDA|PRACA FELIX GUISARD,  S/N|TAUBATE|SP": {
+        "latitude": -23.0260583,
+        "longitude": -45.5658376,
+        "endereco_encontrado": "Praça Félix Guisard, 1º Subdistrito, Taubaté, São Paulo, Região Sudeste, 12020-350, Brasil",
+        "consulta_utilizada": "PRACA FELIX GUISARD,  S/N, TAUBATE - SP, Brasil"
+    },
+    "POSTO SAO LUIZ DO PARAITINGA LTDA|AVENIDA CELESTINO CAMPOS COELHO,  135|SAO LUIZ DO PARAITINGA|SP": {
+        "latitude": -23.2216014,
+        "longitude": -45.310991,
+        "endereco_encontrado": "Avenida Celestino Campos Coelho, São Luiz do Paraitinga, São Paulo, Região Sudeste, 12140-000, Brasil",
+        "consulta_utilizada": "AVENIDA CELESTINO CAMPOS COELHO,  135, SAO LUIZ DO PARAITINGA - SP, Brasil"
+    },
+    "AUTO POSTO COCUERA DE MOGI LTDA|RODOVIA PROFESSOR ALFREDO ROLIM DE MOURA,  7650|MOGI DAS CRUZES|SP": {
+        "latitude": -23.518059,
+        "longitude": -46.187769,
+        "endereco_encontrado": "Rodovia Professor Alfredo Rolim de Moura, Centro Cívico, Shangai, Mogi das Cruzes, São Paulo, Região Sudeste, 08710-200, Brasil",
+        "consulta_utilizada": "RODOVIA PROFESSOR ALFREDO ROLIM DE MOURA,  7650, MOGI DAS CRUZES - SP, Brasil"
+    },
+    "VIP AUTO POSTO LTDA|AVENIDA SENADOR VERGUEIRO,  1032|SAO BERNARDO DO CAMPO|SP": {
+        "latitude": -23.6837568,
+        "longitude": -46.5551693,
+        "endereco_encontrado": "Avenida Senador Vergueiro, Jardim Três Marias, Jardim do Mar, Centro, São Bernardo do Campo, São Paulo, Região Sudeste, 09750-060, Brasil",
+        "consulta_utilizada": "AVENIDA SENADOR VERGUEIRO,  1032, CENTRO, SAO BERNARDO DO CAMPO - SP, 9750000, Brasil"
+    },
+    "SETE ESTRELAS COMERCIO DE DERIVADOS DE PETROLEO LTDA|AVENIDA JOAO BATISTA DE SOUZA SOARES,  2.969|SAO JOSE DOS CAMPOS|SP": {
+        "latitude": -23.2461875,
+        "longitude": -45.9073621,
+        "endereco_encontrado": "Avenida João Batista de Souza Soares, Jardim Veneza, São José dos Campos, São Paulo, Região Sudeste, 12237-091, Brasil",
+        "consulta_utilizada": "AVENIDA JOAO BATISTA DE SOUZA SOARES,  2.969, JARDIM MORUMBI, SAO JOSE DOS CAMPOS - SP, 12236660, Brasil"
+    },
+    "AUTO POSTO MATA VIRGEM LTDA|AVENIDA FRANCISCO MONTEIRO,  871|RIBEIRAO PIRES|SP": {
+        "latitude": -23.7104772,
+        "longitude": -46.410637,
+        "endereco_encontrado": "Avenida Francisco Monteiro, Jardim Itacolomy, Centro Alto, Ribeirão Pires, São Paulo, Região Sudeste, 09400-250, Brasil",
+        "consulta_utilizada": "AVENIDA FRANCISCO MONTEIRO,  871, CENTRO, RIBEIRAO PIRES - SP, 9406300, Brasil"
+    },
+    "JOSE TELMO R SIQUEIRA & CIA LTDA|RUA PAULINO FERNANDES DE CASTRO,  362|NATIVIDADE DA SERRA|SP": {
+        "latitude": -23.3757905,
+        "longitude": -45.4429861,
+        "endereco_encontrado": "Rua Paulino Fernandes de Castro, Natividade da Serra, São Paulo, Região Sudeste, Brasil",
+        "consulta_utilizada": "RUA PAULINO FERNANDES DE CASTRO,  362, NATIVIDADE DA SERRA - SP, Brasil"
+    }
+}

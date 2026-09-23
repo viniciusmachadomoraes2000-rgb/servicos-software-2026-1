@@ -1,46 +1,355 @@
-const botao = document.getElementById("botao-calcular");
+const botaoPlanejar = document.getElementById("botao-planejar");
+
 const resultado = document.getElementById("resultado");
+const resumoViagem = document.getElementById("resumo-viagem");
+const listaPostos = document.getElementById("lista-postos");
+const mensagemCarregando = document.getElementById("mensagem-carregando");
 
-botao.addEventListener("click", async function () {
 
-    const distancia = Number(document.getElementById("distancia").value);
-    const consumo = Number(document.getElementById("consumo").value);
-    const preco = Number(document.getElementById("preco").value);
+botaoPlanejar.addEventListener("click", async function () {
 
-    if (distancia <= 0 || consumo <= 0 || preco <= 0) {
-        resultado.innerHTML = "Preencha todos os valores corretamente.";
+    const origem = document.getElementById("origem").value.trim();
+    const destino = document.getElementById("destino").value.trim();
+
+    const tipoVeiculo =
+        document.getElementById("tipo-veiculo").value;
+
+    const consumo =
+        Number(document.getElementById("consumo").value);
+
+    const preco =
+        Number(document.getElementById("preco").value);
+
+    const passageiros =
+        Number(document.getElementById("passageiros").value);
+
+    const pedagios =
+        Number(document.getElementById("pedagios").value);
+
+    const preferencia =
+        document.getElementById("preferencia").value;
+
+    const idaVolta =
+        document.getElementById("ida-volta").checked;
+
+
+    if (
+        origem === "" ||
+        destino === "" ||
+        consumo <= 0 ||
+        preco <= 0 ||
+        passageiros <= 0
+    ) {
+
+        alert(
+            "Preencha corretamente os dados da viagem."
+        );
+
         return;
     }
 
+
     const dados = {
-        distancia: distancia,
+
+        origem: origem,
+        destino: destino,
+
+        tipo_veiculo: tipoVeiculo,
+
         consumo: consumo,
-        preco: preco
+        preco: preco,
+
+        passageiros: passageiros,
+        pedagios: pedagios,
+
+        preferencia: preferencia,
+        ida_volta: idaVolta
     };
+
+
+    resultado.classList.add("oculto");
+    mensagemCarregando.classList.remove("oculto");
+
+    botaoPlanejar.disabled = true;
+
 
     try {
 
-        const resposta = await fetch("/api/calcular", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dados)
-        });
+        const resposta = await fetch(
+            "/api/planejar",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(dados)
+            }
+        );
+
 
         const retorno = await resposta.json();
 
-        resultado.innerHTML =
-            "Combustível necessário: " +
-            retorno.litros_necessarios +
-            " litros <br>" +
-            "Custo total: R$ " +
-            retorno.custo_total.toFixed(2);
+
+        if (!resposta.ok) {
+
+            throw new Error(
+                retorno.erro ||
+                "Não foi possível planejar a viagem."
+            );
+
+        }
+
+
+        mostrarResumo(retorno);
+
+        mostrarPostos(retorno.postos);
+
+
+        resultado.classList.remove("oculto");
+
 
     } catch (erro) {
 
-        resultado.innerHTML = "Erro ao conectar com o backend.";
+        alert(
+            "Erro ao planejar a viagem:\n" +
+            erro.message
+        );
+
+    } finally {
+
+        mensagemCarregando.classList.add("oculto");
+
+        botaoPlanejar.disabled = false;
 
     }
 
 });
+
+
+function formatarDinheiro(valor) {
+
+    return Number(valor).toLocaleString(
+        "pt-BR",
+        {
+            style: "currency",
+            currency: "BRL"
+        }
+    );
+
+}
+
+
+function mostrarResumo(retorno) {
+
+    const viagem = retorno.viagem;
+
+
+    resumoViagem.innerHTML = `
+
+        <div class="card-resumo">
+            <span class="titulo-card">
+                Origem
+            </span>
+
+            <strong>
+                ${retorno.origem.nome}
+            </strong>
+        </div>
+
+
+        <div class="card-resumo">
+            <span class="titulo-card">
+                Destino
+            </span>
+
+            <strong>
+                ${retorno.destino.nome}
+            </strong>
+        </div>
+
+
+        <div class="card-resumo">
+            <span class="titulo-card">
+                Distância de ida
+            </span>
+
+            <strong>
+                ${viagem.distancia_ida_km} km
+            </strong>
+        </div>
+
+
+        <div class="card-resumo">
+            <span class="titulo-card">
+                Distância total
+            </span>
+
+            <strong>
+                ${viagem.distancia_total_km} km
+            </strong>
+        </div>
+
+
+        <div class="card-resumo">
+            <span class="titulo-card">
+                Tempo estimado
+            </span>
+
+            <strong>
+                ${viagem.tempo_estimado_horas} horas
+            </strong>
+        </div>
+
+
+        <div class="card-resumo">
+            <span class="titulo-card">
+                Combustível necessário
+            </span>
+
+            <strong>
+                ${viagem.litros_necessarios} litros
+            </strong>
+        </div>
+
+
+        <div class="card-resumo">
+            <span class="titulo-card">
+                Custo de combustível
+            </span>
+
+            <strong>
+                ${formatarDinheiro(
+                    viagem.custo_combustivel
+                )}
+            </strong>
+        </div>
+
+
+        <div class="card-resumo">
+            <span class="titulo-card">
+                Pedágios
+            </span>
+
+            <strong>
+                ${formatarDinheiro(
+                    viagem.pedagios
+                )}
+            </strong>
+        </div>
+
+
+        <div class="card-resumo">
+            <span class="titulo-card">
+                Custo total
+            </span>
+
+            <strong>
+                ${formatarDinheiro(
+                    viagem.custo_total
+                )}
+            </strong>
+        </div>
+
+
+        <div class="card-resumo">
+            <span class="titulo-card">
+                Custo por passageiro
+            </span>
+
+            <strong>
+                ${formatarDinheiro(
+                    viagem.custo_por_pessoa
+                )}
+            </strong>
+        </div>
+
+    `;
+
+}
+
+
+function mostrarPostos(postos) {
+
+    listaPostos.innerHTML = "";
+
+
+    if (!postos || postos.length === 0) {
+
+        listaPostos.innerHTML = `
+
+            <div class="posto-card">
+
+                <strong>
+                    Nenhum posto encontrado
+                    a até 3 km da rota.
+                </strong>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    postos.forEach(function (posto, indice) {
+
+        const card = document.createElement("div");
+
+        card.className = "posto-card";
+
+
+        card.innerHTML = `
+
+            <h3>
+                ⛽ ${indice + 1}.
+                ${posto.razao_social}
+            </h3>
+
+
+            <p>
+                <strong>Bandeira:</strong>
+                ${posto.bandeira || "Não informada"}
+            </p>
+
+
+            <p>
+                <strong>Endereço:</strong>
+                ${posto.endereco}
+            </p>
+
+
+            <p>
+                <strong>Bairro:</strong>
+                ${posto.bairro || "Não informado"}
+            </p>
+
+
+            <p>
+                <strong>Município:</strong>
+                ${posto.municipio} - ${posto.uf}
+            </p>
+
+
+            <p>
+                <strong>CEP:</strong>
+                ${posto.cep || "Não informado"}
+            </p>
+
+
+            <p>
+                <strong>Distância da rota:</strong>
+                ${posto.distancia_rota_km} km
+            </p>
+
+        `;
+
+
+        listaPostos.appendChild(card);
+
+    });
+
+}
