@@ -7,7 +7,7 @@ import os
 import time
 import urllib.parse
 import urllib.request
-
+import urllib.error
 
 app = Flask(__name__)
 
@@ -354,6 +354,54 @@ def buscar_postos_proximos(
 
     return encontrados
 
+# ---------------------------------------------------------
+# COMUNICAÇÃO COM O SERVIÇO DE IA
+# ---------------------------------------------------------
+
+def gerar_recomendacao_ia(dados_viagem):
+
+    url = "http://ia-service:6000/recomendar"
+
+    corpo = json.dumps(
+        dados_viagem
+    ).encode("utf-8")
+
+    requisicao = urllib.request.Request(
+        url,
+        data=corpo,
+        headers={
+            "Content-Type": "application/json"
+        },
+        method="POST"
+    )
+
+    try:
+
+        with urllib.request.urlopen(
+            requisicao,
+            timeout=20
+        ) as resposta:
+
+            retorno = json.loads(
+                resposta.read().decode("utf-8")
+            )
+
+        return retorno.get(
+            "recomendacao",
+            "Sem recomendação disponível."
+        )
+
+    except Exception as erro:
+
+        print(
+            "Erro ao consultar IA Service:",
+            erro
+        )
+
+        return (
+            "Não foi possível gerar a recomendação "
+            "inteligente neste momento."
+        )
 
 # ---------------------------------------------------------
 # API PRINCIPAL DO SMARTTRIP
@@ -516,7 +564,52 @@ def planejar():
             limite_km=3
         )
 
+        dados_para_ia = {
 
+            "origem": origem["nome"],
+            "destino": destino["nome"],
+
+            "tipo_veiculo": tipo_veiculo,
+            "preferencia": preferencia,
+
+            "passageiros": passageiros,
+
+            "distancia_total_km": round(
+                distancia_total,
+                1
+            ),
+
+            "tempo_estimado_horas": round(
+                duracao_total,
+                1
+            ),
+
+            "litros_necessarios": round(
+                litros,
+                2
+            ),
+
+            "custo_total": round(
+                custo_total,
+                2
+            ),
+
+            "custo_por_pessoa": round(
+                custo_por_pessoa,
+                2
+            ),
+
+            "quantidade_postos": len(postos),
+
+            "postos": postos[:5]
+        }
+
+
+        recomendacao_ia = gerar_recomendacao_ia(
+            dados_para_ia
+    )
+
+    
         # ---------------------------
         # RESPOSTA
         # ---------------------------
@@ -611,7 +704,10 @@ def planejar():
             "postos": postos,
 
             "quantidade_postos":
-                len(postos)
+                len(postos),
+
+            "recomendacao_ia":
+                recomendacao_ia
         })
 
 
