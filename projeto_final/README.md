@@ -63,7 +63,6 @@ O usuário pode informar:
 - Preço do combustível
 - Número de passageiros
 - Valor dos pedágios
-- Preferência da viagem
 - Ida ou ida e volta
 
 O sistema apresenta:
@@ -215,7 +214,6 @@ Exemplo de requisição:
     "preco": 6,
     "passageiros": 4,
     "pedagios": 0,
-    "preferencia": "economia",
     "ida_volta": true
 }
 ```
