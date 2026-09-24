@@ -17,197 +17,188 @@
     >
 </head>
 
-
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <header>
-        <h1>SmartTrip</h1>
+        <header>
 
-        <p>
-            Planejador Inteligente de Viagens
-        </p>
-    </header>
+            <h1>SmartTrip</h1>
 
+            <p>
+                Planejador de Rotas e Custos de Viagem
+            </p>
 
-    <section class="formulario">
-
-        <h2>Planeje sua viagem</h2>
+        </header>
 
 
-        <label for="origem">
-            Origem
-        </label>
+        <section class="formulario">
 
-        <input
-            type="text"
-            id="origem"
-            placeholder="Ex.: São Bernardo do Campo, SP"
-            value="São Bernardo do Campo, SP, Brasil"
-        >
+            <h2>Planeje sua viagem</h2>
 
 
-        <label for="destino">
-            Destino
-        </label>
-
-        <input
-            type="text"
-            id="destino"
-            placeholder="Ex.: Ubatuba, SP"
-            value="Ubatuba, SP, Brasil"
-        >
-
-
-        <label for="tipo-veiculo">
-            Tipo de veículo
-        </label>
-
-        <select id="tipo-veiculo">
-
-            <option value="carro">
-                Carro
-            </option>
-
-            <option value="moto">
-                Moto
-            </option>
-
-            <option value="utilitario">
-                Utilitário
-            </option>
-
-        </select>
-
-
-        <label for="consumo">
-            Consumo médio (km/L)
-        </label>
-
-        <input
-            type="number"
-            id="consumo"
-            step="0.1"
-            value="12"
-        >
-
-
-        <label for="preco">
-            Preço do combustível (R$/L)
-        </label>
-
-        <input
-            type="number"
-            id="preco"
-            step="0.01"
-            value="6"
-        >
-
-
-        <label for="passageiros">
-            Número de passageiros
-        </label>
-
-        <input
-            type="number"
-            id="passageiros"
-            min="1"
-            value="4"
-        >
-
-
-        <label for="pedagios">
-            Valor total dos pedágios (R$)
-        </label>
-
-        <input
-            type="number"
-            id="pedagios"
-            step="0.01"
-            min="0"
-            value="0"
-        >
-
-
-        <label for="preferencia">
-            Preferência da viagem
-        </label>
-
-        <select id="preferencia">
-
-            <option value="economia">
-                Economia
-            </option>
-
-            <option value="rapidez">
-                Rapidez
-            </option>
-
-            <option value="conforto">
-                Conforto
-            </option>
-
-        </select>
-
-
-        <div class="checkbox-container">
-
-            <input
-                type="checkbox"
-                id="ida-volta"
-                checked
-            >
-
-            <label for="ida-volta">
-                Ida e volta
+            <label for="origem">
+                Origem
             </label>
 
-        </div>
+            <input
+                type="text"
+                id="origem"
+                placeholder="Ex.: São Bernardo do Campo, SP"
+            >
 
 
-        <button id="botao-planejar">
-            Planejar viagem
-        </button>
+            <label for="destino">
+                Destino
+            </label>
+
+            <input
+                type="text"
+                id="destino"
+                placeholder="Ex.: Ubatuba, SP"
+            >
 
 
-        <p
-            id="mensagem-carregando"
-            class="oculto"
+            <label for="tipo-veiculo">
+                Tipo de veículo
+            </label>
+
+            <select id="tipo-veiculo">
+
+                <option
+                    value=""
+                    selected
+                    disabled
+                >
+                    Selecione
+                </option>
+
+                <option value="carro">
+                    Carro
+                </option>
+
+                <option value="moto">
+                    Moto
+                </option>
+
+                <option value="utilitario">
+                    Utilitário
+                </option>
+
+            </select>
+
+
+            <label for="consumo">
+                Consumo médio (km/L)
+            </label>
+
+            <input
+                type="number"
+                id="consumo"
+                step="0.1"
+                min="0.1"
+                placeholder="Ex.: 12"
+            >
+
+
+            <label for="preco">
+                Preço do combustível (R$/L)
+            </label>
+
+            <input
+                type="number"
+                id="preco"
+                step="0.01"
+                min="0.01"
+                placeholder="Ex.: 6,00"
+            >
+
+
+            <label for="passageiros">
+                Número de passageiros
+            </label>
+
+            <input
+                type="number"
+                id="passageiros"
+                min="1"
+                placeholder="Ex.: 4"
+            >
+
+
+            <label for="pedagios">
+                Valor total dos pedágios (R$)
+            </label>
+
+            <input
+                type="number"
+                id="pedagios"
+                step="0.01"
+                min="0"
+                placeholder="Ex.: 25,00"
+            >
+
+
+            <div class="checkbox-container">
+
+                <input
+                    type="checkbox"
+                    id="ida-volta"
+                >
+
+                <label for="ida-volta">
+                    Ida e volta
+                </label>
+
+            </div>
+
+
+            <button id="botao-planejar">
+                Planejar viagem
+            </button>
+
+
+            <p
+                id="mensagem-carregando"
+                class="oculto"
+            >
+                Calculando rota e procurando postos...
+            </p>
+
+        </section>
+
+
+        <section
+            id="resultado"
+            class="resultado oculto"
         >
-            Calculando rota e procurando postos...
-        </p>
 
-    </section>
-
-
-    <section
-        id="resultado"
-        class="resultado oculto"
-    >
-
-        <h2>Resumo da viagem</h2>
-
-        <div
-            id="resumo-viagem"
-            class="resumo-grid"
-        >
-        </div>
+            <h2>
+                Resumo da viagem
+            </h2>
 
 
-        <h2>
-            Postos próximos da rota
-        </h2>
-
-        <div id="lista-postos">
-        </div>
-
-    </section>
-
-</div>
+            <div
+                id="resumo-viagem"
+                class="resumo-grid"
+            >
+            </div>
 
 
-<script src="script.js"></script>
+            <h2>
+                Postos próximos da rota
+            </h2>
+
+
+            <div id="lista-postos">
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <script src="script.js"></script>
 
 </body>
 
